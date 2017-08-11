@@ -1,25 +1,26 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { getMovies } from '../../actions/getMovies';
-
+import { apiCall } from '../../actions/apiCall';
+import { Link } from 'react-router';
 class Discover extends React.Component {
   componentDidMount() {
-    this.props.getMovies();
+    this.props.apiCall();
   }
   renderMovies() {
-    const { tmdbMovies } = this.props;
-    console.log(tmdbMovies);
-    return tmdbMovies.map(movie => {
+    const { discover } = this.props;
+    return discover.map(movie => {
       const url = `http://image.tmdb.org/t/p/w342/${movie.poster_path}`;
-
       return (
+        <Link to={movie.title}>
         <div
+          key={movie.title}
           style={{
             height: 500,
             backgroundSize: 'cover',
             background: `url(${url})  no-repeat `
           }}
         />
+      </Link>
       );
     });
   }
@@ -33,10 +34,10 @@ class Discover extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { tmdbMovies: state.tmdbMovies };
+  return { discover: state.discover };
 };
 
 const mapDispatchToProps = dispatch => ({
-  getMovies: data => dispatch(getMovies())
+  apiCall: data => dispatch(apiCall())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Discover);

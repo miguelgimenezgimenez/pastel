@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import tmdbMovies from './tmdbMovies';
+import discover from './discover';
 
 const reducers = combineReducers({
-  tmdbMovies,
+  discover,
 });
 
 export default reducers;
